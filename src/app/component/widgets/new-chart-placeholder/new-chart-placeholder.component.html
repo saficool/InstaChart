@@ -1,0 +1,36 @@
+<div id="chart-picker"
+    class="d-flex justify-content-center align-items-center border border-secondary-subtle rounded-2 p-1"
+    (click)="pickChartType()" [ngClass]="{'disabled-chart-icon': chartConfiguration.id!=0}">
+    <div [innerHTML]="selected_chart_available_details.chartIcon" class="me-2"></div>
+    {{selected_chart_available_details.chartTitle}} Chart
+</div>
+<hr>
+<div class="row g-2 mb-4">
+    <div class="col-sm-8">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text" id="title">Title</span>
+            <input [(ngModel)]="chartConfiguration.title" type="text" class="form-control shadow-none"
+                aria-label="title" aria-describedby="title">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text" id="column">Column</span>
+            <select [(ngModel)]="chartConfiguration.columns" class="form-select shadow-none"
+                aria-label="Default select example" aria-describedby="column">
+                <option [value]="3">3</option>
+                <option [value]="4">4</option>
+                <option [value]="5">5</option>
+                <option [value]="6">6</option>
+                <option [value]="7">7</option>
+                <option [value]="8">8</option>
+                <option [value]="9">9</option>
+                <option [value]="10">10</option>
+                <option [value]="11">11</option>
+                <option [value]="12">12</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div #dynamicComponentContainer></div>

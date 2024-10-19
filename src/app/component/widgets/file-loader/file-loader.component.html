@@ -1,0 +1,28 @@
+<div class="card mb-1">
+    <div class="card-body p-2">
+        <div class="d-flex gap-2 mb-2">
+            <input #fileInput title="file" class="form-control form-control-sm shadow-none" type="file"
+                [accept]="'.csv'" (change)="onFileChange($event)" [multiple]="false">
+            <button title="Upload" type="button" class="btn btn-sm btn-primary" (click)="importFile()">
+                <i class="bi bi-upload"></i>
+            </button>
+        </div>
+        <div class="d-flex justify-content-end align-items-center gap-2">
+            @if(loading){
+            <div class="spinner-border spinner-border-sm me-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            }
+
+            <button type="button" class="btn btn-sm btn-secondary ms-auto" aria-label="Viewdata"
+                (click)="viewChartData()" [disabled]="!fileUploaded">
+                <i class="bi bi-table"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" aria-label="ViewColumns" (click)="viewHeaders()"
+                [disabled]="!fileUploaded">
+                <i class="bi bi-list-columns"></i>
+            </button>
+        </div>
+
+    </div>
+</div>

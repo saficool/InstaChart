@@ -1,0 +1,15 @@
+div#chart-picker {
+  font-size: larger;
+  width: fit-content;
+  cursor: pointer;
+}
+
+div#chart-picker:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.disabled-chart-icon {
+  pointer-events: none; /* Disables click and other events */
+  opacity: 0.75; /* Makes the element appear dimmed */
+  cursor: not-allowed; /* Shows a 'not-allowed' cursor */
+}

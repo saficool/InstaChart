@@ -39,7 +39,7 @@
     <ng-template pTemplate="content">
         <div class="row g-2">
             @for (available_chart of available_charts; track $index) {
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div class="card" (click)="onSelectChartType(available_chart, chart_selector)" style="cursor: pointer;">
                     <div class="card-body d-flex justify-content-center align-items-center p-2">
                         <div [innerHTML]="available_chart.icon"></div>

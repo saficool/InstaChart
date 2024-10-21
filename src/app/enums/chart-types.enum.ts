@@ -1,5 +1,6 @@
 export enum MyChartTypeEnum {
     LINE = "line",
     STEP = 'step',
-    AREA = "area"
+    LINE_AREA = "line-area",
+    STEP_AREA = "step-area"
 }

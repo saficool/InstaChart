@@ -1,5 +1,7 @@
 import { AreaChartComponent } from "../component/widgets/available-charts/area-chart/area-chart.component";
+import { LineAreaChartComponent } from "../component/widgets/available-charts/line-area-chart/line-area-chart.component";
 import { LineChartComponent } from "../component/widgets/available-charts/line-chart/line-chart.component";
+import { StepAreaChartComponent } from "../component/widgets/available-charts/step-area-chart/step-area-chart.component";
 import { StepChartComponent } from "../component/widgets/available-charts/step-chart/step-chart.component";
 import { MyChartTypeEnum } from "../enums/chart-types.enum";
 import { IMyAvailableChart } from "../interfaces/available-chart.interface";
@@ -178,18 +180,14 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
         <line x1="40" y1="360" x2="40" y2="40" stroke="black" stroke-width="20" />
   
         <!-- Step Line -->
-        <path d="M40,320 H80 V280 H120 V300 H160 V200 H200 V240 H240 V180 H280 V100 H320 V140 H360" 
-              fill="none" stroke="blue" stroke-width="15" />
+        <path d="M40,320 H120 V240 H200 V160 H280 V80 H360" 
+        fill="none" stroke="blue" stroke-width="15" />
   
         <!-- Data points -->
-        <circle cx="40" cy="320" r="4" fill="blue" />
-        <circle cx="80" cy="280" r="4" fill="blue" />
-        <circle cx="120" cy="300" r="4" fill="blue" />
-        <circle cx="160" cy="200" r="4" fill="blue" />
-        <circle cx="200" cy="240" r="4" fill="blue" />
-        <circle cx="240" cy="180" r="4" fill="blue" />
-        <circle cx="280" cy="100" r="4" fill="blue" />
-        <circle cx="320" cy="140" r="4" fill="blue" />
+        <circle cx="40" cy="320" r="5" fill="blue" />
+        <circle cx="120" cy="240" r="5" fill="blue" />
+        <circle cx="200" cy="160" r="5" fill="blue" />
+        <circle cx="280" cy="80" r="5" fill="blue" />
   
         <!-- Axes labels -->
         <text x="200" y="390" text-anchor="middle" font-size="14">X-axis</text>
@@ -199,8 +197,8 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
         template: StepChartComponent
     },
     { // Area Chart
-        title: "Area",
-        type: MyChartTypeEnum.AREA,
+        title: "Line Area",
+        type: MyChartTypeEnum.LINE_AREA,
         options: {
             title: {
                 text: "My area chart",
@@ -267,9 +265,7 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
             type: "line",
             label: { show: true },
             smooth: false,
-            step: "start", //middle, end
             name: "",
-            areaStyle: {},
             data: [],
         },
         icon: `
@@ -297,6 +293,101 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
         <text x="20" y="200" text-anchor="middle" font-size="14" transform="rotate(-90 20,200)">Y-axis</text>
         </svg>
         `,
-        template: AreaChartComponent
+        template: LineAreaChartComponent
+    },
+    { // Area Chart
+        title: "Step Area",
+        type: MyChartTypeEnum.STEP_AREA,
+        options: {
+            title: {
+                text: "My area chart",
+                textStyle: {
+                    fontSize: 18,
+                    fontWeight: "bolder"
+                }
+            },
+            xAxis: {
+                type: "category",
+                axisTick: {
+                    show: true,
+                    alignWithLabel: true
+                },
+                name: "X-Axis label",
+                nameLocation: "center",
+                nameTextStyle: {
+                    verticalAlign: "top",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [20, 0, 0, 0]
+                },
+                data: []
+            },
+            yAxis: {
+                type: "value",
+                axisTick: {
+                    show: true
+                },
+                name: "Y-Axis label",
+                nameTextStyle: {
+                    verticalAlign: "bottom",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [10, 0, 0, 0]
+                }
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                    label: { backgroundColor: "#6a7985" }
+                }
+            },
+            toolbox: {
+                left: "right",
+                top: "bottom",
+                orient: "horizontal",
+                feature: {
+                    saveAsImage: {},
+                    dataView: {},
+                    restore: {},
+                    dataZoom: {}
+                }
+            },
+            legend: {
+                left: "right",
+                orient: "horizontal"
+            },
+            grid: { show: true },
+            series: []
+        },
+        optionSeriesObject: {
+            type: "line",
+            label: { show: true },
+            smooth: false,
+            name: "",
+            data: [],
+        },
+        icon: `
+        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <!-- Axes -->
+        <line x1="40" y1="360" x2="360" y2="360" stroke="black" stroke-width="20" />
+        <line x1="40" y1="360" x2="40" y2="40" stroke="black" stroke-width="20" />
+
+        <!-- Step Area -->
+        <path d="M40,320 H120 V240 H200 V160 H280 V80 H360 V360 H40 Z" 
+              fill="rgba(0,0,255,0.3)" stroke="blue" stroke-width="15" />
+
+        <!-- Data points -->
+        <circle cx="40" cy="320" r="5" fill="blue" />
+        <circle cx="120" cy="240" r="5" fill="blue" />
+        <circle cx="200" cy="160" r="5" fill="blue" />
+        <circle cx="280" cy="80" r="5" fill="blue" />
+
+        <!-- Axes labels -->
+        <text x="200" y="390" text-anchor="middle" font-size="14">X-axis</text>
+        <text x="20" y="200" text-anchor="middle" font-size="14" transform="rotate(-90 20,200)">Y-axis</text>
+        </svg>
+        `,
+        template: StepAreaChartComponent
     }
 ]

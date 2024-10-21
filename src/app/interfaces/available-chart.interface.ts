@@ -1,10 +1,12 @@
 import { SafeHtml } from "@angular/platform-browser";
-import { ChartTypeEnum } from "../enums/chart-types.enum";
+import { MyChartTypeEnum } from "../enums/chart-types.enum";
 import { Type } from "@angular/core";
 
-export interface IAvailableChart {
-    chartType: ChartTypeEnum,
-    chartTitle: string,
-    chartIcon: SafeHtml,
-    chartFormTemplate: Type<any>
+export interface IMyAvailableChart {
+    title: string,
+    type: MyChartTypeEnum,
+    options: any,
+    optionSeriesObject: {},
+    icon: SafeHtml,
+    template: Type<any>
 }

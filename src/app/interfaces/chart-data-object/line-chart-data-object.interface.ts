@@ -6,5 +6,7 @@ export interface ILineDataObject {
 }
 export interface ILineAggregateNumericalObject {
     numerical_column: string,
-    aggregate_function: AggregateFunctionEnum
+    aggregate_function: AggregateFunctionEnum,
+    smooth: boolean,
+    step: string // 'start', 'end'
 }

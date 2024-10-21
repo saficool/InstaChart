@@ -1,7 +1,5 @@
-export enum ChartTypeEnum {
-    LINE = 'line',
-    BAR = 'bar',
-    PIE = 'pie',
-    RADAR = 'radar',
-    SCATTER = 'scatter'
+export enum MyChartTypeEnum {
+    LINE = "line",
+    STEP = 'step',
+    AREA = "area"
 }

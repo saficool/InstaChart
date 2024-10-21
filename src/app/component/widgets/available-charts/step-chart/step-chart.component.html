@@ -49,10 +49,14 @@
         </button>
         <p-overlayPanel #op>
             <div class="flex flex-column gap-2 w-25rem">
-                <div class="form-check form-switch">
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Smooth Line</label>
-                    <input class="form-check-input" [(ngModel)]="aggregate_numerical_object.smooth" type="checkbox"
-                        role="switch" id="flexSwitchCheckChecked" checked>
+                <div class="input-group input-group-sm shadow-none">
+                    <span class="input-group-text" id="area_style">Step</span>
+                    <select class="form-select shadow-none" [(ngModel)]="aggregate_numerical_object.step"
+                        aria-label="Default select example" [disabled]="aggregate_numerical_object.smooth==true">
+                        <option [ngValue]="'start'">Start</option>
+                        <option [ngValue]="'middle'">Middle</option>
+                        <option [ngValue]="'end'">End</option>
+                    </select>
                 </div>
             </div>
         </p-overlayPanel>

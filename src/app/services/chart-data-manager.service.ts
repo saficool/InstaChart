@@ -25,7 +25,6 @@ export class ChartDataManagerService implements IChartDataManager {
           const column_types = this.utilityFunctionsService$.identifyColumnTypes(this.chartData$.chart_data);
           this.chartData$.chart_data_column_types = { numerical: column_types.numericalColumns, categorical: column_types.categoricalColumns }
           this.updateHasChartData();
-          console.log(this.chartData$)
           resolve(true);
         }
         catch (error) {

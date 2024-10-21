@@ -3,13 +3,13 @@ import { DynamicDialogService } from '../../../services/dynamic-dialog.service';
 import { IDynamicDialog, IDynamicDialogConfig } from '../../../interfaces/dynamic-dialog.interface';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { NewChartPlaceholderComponent } from '../new-chart-placeholder/new-chart-placeholder.component';
-import { ChartJsonTemplateService } from '../../../services/chart-json-template.service';
-import { ChartTypeEnum } from '../../../enums/chart-types.enum';
-import { EChartsOption } from 'echarts';
+import { MyChartTypeEnum } from '../../../enums/chart-types.enum';
 import { IChartConfiguration } from '../../../interfaces/chart-configuration-manager.interface';
-import { ILineDataObject } from '../../../interfaces/chart-data-object/line-chart-data-object.interface';
+import { ILineAggregateNumericalObject, ILineDataObject } from '../../../interfaces/chart-data-object/line-chart-data-object.interface';
 import { AggregateFunctionEnum } from '../../../enums/aggregate-function.enum';
 import { ChartDataManagerService } from '../../../services/chart-data-manager.service';
+import { IMyAvailableChart } from '../../../interfaces/available-chart.interface';
+import { MY_AVAILABLE_CHARTS } from '../../../consts/chartly.constants';
 
 @Component({
   selector: 'app-new-chart',
@@ -20,53 +20,59 @@ import { ChartDataManagerService } from '../../../services/chart-data-manager.se
 })
 export class NewChartComponent {
 
+  protected available_charts: IMyAvailableChart[] = MY_AVAILABLE_CHARTS
+
   protected hasChartData: boolean = false
-  private lineChartConfiguration: IChartConfiguration
+  private lineChartConfiguration!: IChartConfiguration
 
   private chartDataManagerService = inject(ChartDataManagerService)
   private dynamicDialogService: IDynamicDialog = inject(DynamicDialogService)
-  private chartJsonTemplateService = inject(ChartJsonTemplateService)
 
   constructor() {
     effect(() => { this.hasChartData = this.chartDataManagerService.hasChartData() });
-    const lineDataObject: ILineDataObject = {
-      categorical_column: "",
-      aggregate_numerical_objects: [
-        { numerical_column: "", aggregate_function: AggregateFunctionEnum.COUNT }
-      ]
-    }
-    this.lineChartConfiguration = {
-      id: 0,
-      columns: 6,
-      type: ChartTypeEnum.LINE,
-      title: '',
-      options: undefined,
-      data_object: lineDataObject
-    }
-
+    this.buildDefaultLineChart()
   }
 
   ngOnInit(): void {
-    this.getLineChartConfiguration()
+    this.getLineChartConfiguration(MyChartTypeEnum.LINE)
   }
 
   ngOnDestroy(): void {
   }
 
-  private getLineChartConfiguration() {
-    this.chartJsonTemplateService.GetChartsOptionsTemplate(ChartTypeEnum.LINE)
-      .then((data: any) => {
-        this.lineChartConfiguration.options = data
-        this.lineChartConfiguration.title = data.title!.text
-      })
+  private buildDefaultLineChart() {
+    const aggregate_numerical_object: ILineAggregateNumericalObject[] = [{
+      numerical_column: "",
+      aggregate_function: AggregateFunctionEnum.COUNT,
+      smooth: false,
+      step: "start"
+    },]
+    const lineDataObject: ILineDataObject = {
+      categorical_column: "",
+      aggregate_numerical_objects: aggregate_numerical_object
+    }
+    this.lineChartConfiguration = {
+      id: 0,
+      columns: 6,
+      type: MyChartTypeEnum.LINE,
+      title: '',
+      options: undefined,
+      data_object: lineDataObject
+    }
+  }
+
+  private getLineChartConfiguration(chartType: MyChartTypeEnum) {
+    const result = this.available_charts.find(f => f.type == chartType)!
+    this.lineChartConfiguration.options = result.options
+    this.lineChartConfiguration.title = result.options.title.text
   }
 
   protected viewNewChartPlaceholder() {
-    console.log(this.lineChartConfiguration)
     const config: DynamicDialogConfig = {
       data: this.lineChartConfiguration,
       header: "New Chart",
       width: '500px',
+      height: "auto",
       closeOnEscape: false,
       modal: true,
       resizable: false,

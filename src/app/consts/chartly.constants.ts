@@ -1,12 +1,85 @@
+import { AreaChartComponent } from "../component/widgets/available-charts/area-chart/area-chart.component";
 import { LineChartComponent } from "../component/widgets/available-charts/line-chart/line-chart.component";
-import { ChartTypeEnum } from "../enums/chart-types.enum";
-import { IAvailableChart } from "../interfaces/available-chart.interface";
+import { StepChartComponent } from "../component/widgets/available-charts/step-chart/step-chart.component";
+import { MyChartTypeEnum } from "../enums/chart-types.enum";
+import { IMyAvailableChart } from "../interfaces/available-chart.interface";
 
-export const AVAILABLE_CHARTS: IAvailableChart[] = [
-    {
-        chartType: ChartTypeEnum.LINE,
-        chartTitle: "Line",
-        chartIcon: `
+export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
+    { // Line Chart
+        title: "Line",
+        type: MyChartTypeEnum.LINE,
+        options: {
+            title: {
+                text: "My line chart",
+                textStyle: {
+                    fontSize: 18,
+                    fontWeight: "bolder"
+                }
+            },
+            xAxis: {
+                type: "category",
+                axisTick: {
+                    show: true,
+                    alignWithLabel: true
+                },
+                name: "X-Axis label",
+                nameLocation: "center",
+                nameTextStyle: {
+                    verticalAlign: "top",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [20, 0, 0, 0]
+                },
+                data: []
+            },
+            yAxis: {
+                type: "value",
+                axisTick: {
+                    show: true
+                },
+                name: "Y-Axis label",
+                nameTextStyle: {
+                    verticalAlign: "bottom",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [10, 0, 0, 0]
+                }
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                    label: { backgroundColor: "#6a7985" }
+                }
+            },
+            toolbox: {
+                left: "right",
+                top: "bottom",
+                orient: "horizontal",
+                feature: {
+                    saveAsImage: {},
+                    dataView: {},
+                    restore: {},
+                    dataZoom: {}
+                }
+            },
+            legend: {
+                left: "right",
+                orient: "horizontal"
+            },
+            grid: {
+                show: true
+            },
+            series: []
+        },
+        optionSeriesObject: {
+            type: "line",
+            label: { show: true },
+            smooth: false,
+            name: "",
+            data: [],
+        },
+        icon: `
         <svg width="25" height="25" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <!-- Axes -->
         <line x1="40" y1="360" x2="360" y2="360" stroke="black" stroke-width="20" />
@@ -22,72 +95,208 @@ export const AVAILABLE_CHARTS: IAvailableChart[] = [
         "/>
         </svg>
         `,
-        chartFormTemplate: LineChartComponent,
+        template: LineChartComponent
     },
-    // {
-    //     chartType: ChartTypeEnum.BAR,
-    //     chartIcon: `
-    //     <svg width="25" height="25" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    //     <!-- Axes -->
-    //     <line x1="40" y1="360" x2="360" y2="360" stroke="black" stroke-width="20" />
-    //     <line x1="40" y1="360" x2="40" y2="40" stroke="black" stroke-width="20" />
-
-    //     <!-- Bars -->
-    //     <rect x="60" y="240" width="50" height="120" fill="blue" />
-    //     <rect x="140" y="180" width="50" height="180" fill="green" />
-    //     <rect x="220" y="120" width="50" height="240" fill="red" />
-    //     <rect x="300" y="80" width="50" height="280" fill="orange" />
-    //     </svg>
-    //     `,
-    //     chartFormTemplate: BarComponent,
-    //     isMultiSeriesChart: true
-    // },
-    // {
-    //     chartType: ChartTypeEnum.PIE,
-    //     chartIcon: `
-    //     <svg width="25" height="25" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    //     <!-- Pie Chart Slices -->
-    //     <circle cx="200" cy="200" r="150" fill="lightgray" />
-    //     <path d="M200,200 L200,50 A150,150 0 0,1 350,200 Z" fill="blue" />
-    //     <path d="M200,200 L350,200 A150,150 0 0,1 250,350 Z" fill="red" />
-    //     <path d="M200,200 L250,350 A150,150 0 0,1 200,50 Z" fill="orange" />
-    //     </svg>
-    //     `,
-    //     chartFormTemplate: PieComponent,
-    //     isMultiSeriesChart: false
-    // },
-    // {
-    //     chartType: ChartTypeEnum.RADAR,
-    //     chartIcon: `
-    //     <svg width="25" height="25" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    //     <!-- Axes -->
-    //     <line x1="200" y1="50" x2="200" y2="350" stroke="black" stroke-width="5" />
-    //     <line x1="50" y1="200" x2="350" y2="200" stroke="black" stroke-width="5" />
-    //     <line x1="100" y1="100" x2="300" y2="300" stroke="black" stroke-width="5" />
-    //     <line x1="300" y1="100" x2="100" y2="300" stroke="black" stroke-width="5" />
-
-    //     <!-- Radar Shape (Enlarged) -->
-    //     <polygon points="200,80 320,160 280,320 120,320 80,160" fill="blue" fill-opacity="0.3" stroke="blue" stroke-width="8" />
-    //     </svg>
-    //     `,
-    //     chartFormTemplate: RadarComponent,
-    //     isMultiSeriesChart: true
-    // },
-    // {
-    //     chartType: ChartTypeEnum.SCATTER,
-    //     chartIcon: `
-    //     <svg width="25" height="25" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    //     <!-- Axes -->
-    //     <line x1="200" y1="50" x2="200" y2="350" stroke="black" stroke-width="5" />
-    //     <line x1="50" y1="200" x2="350" y2="200" stroke="black" stroke-width="5" />
-    //     <line x1="100" y1="100" x2="300" y2="300" stroke="black" stroke-width="5" />
-    //     <line x1="300" y1="100" x2="100" y2="300" stroke="black" stroke-width="5" />
-
-    //     <!-- Radar Shape (Enlarged) -->
-    //     <polygon points="200,80 320,160 280,320 120,320 80,160" fill="blue" fill-opacity="0.3" stroke="blue" stroke-width="8" />
-    //     </svg>
-    //     `,
-    //     chartFormTemplate: ScatterComponent,
-    //     isMultiSeriesChart: false
-    // }
+    { // Line Chart
+        title: "Step",
+        type: MyChartTypeEnum.STEP,
+        options: {
+            title: {
+                text: "My step chart",
+                textStyle: {
+                    fontSize: 18,
+                    fontWeight: "bolder"
+                }
+            },
+            xAxis: {
+                type: "category",
+                axisTick: {
+                    show: true,
+                    alignWithLabel: true
+                },
+                name: "X-Axis label",
+                nameLocation: "center",
+                nameTextStyle: {
+                    verticalAlign: "top",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [20, 0, 0, 0]
+                },
+                data: []
+            },
+            yAxis: {
+                type: "value",
+                axisTick: {
+                    show: true
+                },
+                name: "Y-Axis label",
+                nameTextStyle: {
+                    verticalAlign: "bottom",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [10, 0, 0, 0]
+                }
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                    label: { backgroundColor: "#6a7985" }
+                }
+            },
+            toolbox: {
+                left: "right",
+                top: "bottom",
+                orient: "horizontal",
+                feature: {
+                    saveAsImage: {},
+                    dataView: {},
+                    restore: {},
+                    dataZoom: {}
+                }
+            },
+            legend: {
+                left: "right",
+                orient: "horizontal"
+            },
+            grid: {
+                show: true
+            },
+            series: []
+        },
+        optionSeriesObject: {
+            type: "line",
+            label: { show: true },
+            step: "start", //middle, end
+            name: "",
+            data: [],
+        },
+        icon: `
+        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <!-- Axes -->
+        <line x1="40" y1="360" x2="360" y2="360" stroke="black" stroke-width="20" />
+        <line x1="40" y1="360" x2="40" y2="40" stroke="black" stroke-width="20" />
+  
+        <!-- Step Line -->
+        <path d="M40,320 H80 V280 H120 V300 H160 V200 H200 V240 H240 V180 H280 V100 H320 V140 H360" 
+              fill="none" stroke="blue" stroke-width="15" />
+  
+        <!-- Data points -->
+        <circle cx="40" cy="320" r="4" fill="blue" />
+        <circle cx="80" cy="280" r="4" fill="blue" />
+        <circle cx="120" cy="300" r="4" fill="blue" />
+        <circle cx="160" cy="200" r="4" fill="blue" />
+        <circle cx="200" cy="240" r="4" fill="blue" />
+        <circle cx="240" cy="180" r="4" fill="blue" />
+        <circle cx="280" cy="100" r="4" fill="blue" />
+        <circle cx="320" cy="140" r="4" fill="blue" />
+  
+        <!-- Axes labels -->
+        <text x="200" y="390" text-anchor="middle" font-size="14">X-axis</text>
+        <text x="20" y="200" text-anchor="middle" font-size="14" transform="rotate(-90 20,200)">Y-axis</text>
+        </svg>
+        `,
+        template: StepChartComponent
+    },
+    { // Area Chart
+        title: "Area",
+        type: MyChartTypeEnum.AREA,
+        options: {
+            title: {
+                text: "My area chart",
+                textStyle: {
+                    fontSize: 18,
+                    fontWeight: "bolder"
+                }
+            },
+            xAxis: {
+                type: "category",
+                axisTick: {
+                    show: true,
+                    alignWithLabel: true
+                },
+                name: "X-Axis label",
+                nameLocation: "center",
+                nameTextStyle: {
+                    verticalAlign: "top",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [20, 0, 0, 0]
+                },
+                data: []
+            },
+            yAxis: {
+                type: "value",
+                axisTick: {
+                    show: true
+                },
+                name: "Y-Axis label",
+                nameTextStyle: {
+                    verticalAlign: "bottom",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    padding: [10, 0, 0, 0]
+                }
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                    label: { backgroundColor: "#6a7985" }
+                }
+            },
+            toolbox: {
+                left: "right",
+                top: "bottom",
+                orient: "horizontal",
+                feature: {
+                    saveAsImage: {},
+                    dataView: {},
+                    restore: {},
+                    dataZoom: {}
+                }
+            },
+            legend: {
+                left: "right",
+                orient: "horizontal"
+            },
+            grid: { show: true },
+            series: []
+        },
+        optionSeriesObject: {
+            type: "line",
+            label: { show: true },
+            smooth: false,
+            step: "start", //middle, end
+            name: "",
+            areaStyle: {},
+            data: [],
+        },
+        icon: `
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 400 400">
+        <!-- Axes -->
+        <line x1="40" y1="360" x2="360" y2="360" stroke="black" stroke-width="20" />
+        <line x1="40" y1="360" x2="40" y2="40" stroke="black" stroke-width="20" />
+  
+        <!-- Area -->
+        <path d="M40,360 L80,320 L120,280 L160,300 L200,200 L240,240 L280,180 L320,100 L360,140 L360,360 Z" 
+              fill="rgba(0,0,255,0.3)" stroke="blue" stroke-width="15" />
+  
+        <!-- Data points -->
+        <circle cx="80" cy="320" r="4" fill="blue" />
+        <circle cx="120" cy="280" r="4" fill="blue" />
+        <circle cx="160" cy="300" r="4" fill="blue" />
+        <circle cx="200" cy="200" r="4" fill="blue" />
+        <circle cx="240" cy="240" r="4" fill="blue" />
+        <circle cx="280" cy="180" r="4" fill="blue" />
+        <circle cx="320" cy="100" r="4" fill="blue" />
+        <circle cx="360" cy="140" r="4" fill="blue" />
+  
+        <!-- Axes labels -->
+        <text x="200" y="390" text-anchor="middle" font-size="14">X-axis</text>
+        <text x="20" y="200" text-anchor="middle" font-size="14" transform="rotate(-90 20,200)">Y-axis</text>
+        </svg>
+        `,
+        template: AreaChartComponent
+    }
 ]

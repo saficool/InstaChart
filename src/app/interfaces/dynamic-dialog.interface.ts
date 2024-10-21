@@ -7,4 +7,5 @@ export interface IDynamicDialogConfig {
 }
 export interface IDynamicDialog {
     ShowDialog(dynamicDialogConfig: IDynamicDialogConfig): void
+    CloseDialog(): void
 }

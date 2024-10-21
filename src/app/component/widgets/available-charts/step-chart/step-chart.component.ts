@@ -14,14 +14,13 @@ import { ChartConfigurationManagerService } from '../../../../services/chart-con
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
-  selector: 'app-line-chart',
+  selector: 'app-step-chart',
   standalone: true,
   imports: [FormsModule, EnumToArrayPipe, OverlayPanelModule],
-  templateUrl: './line-chart.component.html',
-  styleUrl: './line-chart.component.scss'
+  templateUrl: './step-chart.component.html',
+  styleUrl: './step-chart.component.scss'
 })
-export class LineChartComponent {
-
+export class StepChartComponent {
   @Input() chartConfiguration: IChartConfiguration
 
   protected chartData: IChartData = { chart_data: [], chart_data_column_types: undefined }
@@ -40,7 +39,7 @@ export class LineChartComponent {
     this.chartConfiguration = {
       id: 0,
       columns: 0,
-      type: MyChartTypeEnum.LINE,
+      type: MyChartTypeEnum.STEP,
       title: '',
       data_object: _data_object,
       options: undefined
@@ -71,7 +70,7 @@ export class LineChartComponent {
 
   protected async saveChartConfiguration() {
     console.log(this.chartConfiguration)
-    await this.chartSeriesDataPreparationService.lineChartSeriesData(this.chartConfiguration.data_object! as ILineDataObject, this.chartData.chart_data, new AggregateFunctionsService)
+    await this.chartSeriesDataPreparationService.stepChartSeriesData(this.chartConfiguration.data_object! as ILineDataObject, this.chartData.chart_data, new AggregateFunctionsService)
       .then((data: any) => {
         this.chartConfiguration.options.xAxis.data = data.xAxis
         this.chartConfiguration.options.series = data.series

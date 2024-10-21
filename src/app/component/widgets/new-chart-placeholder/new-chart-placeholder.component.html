@@ -1,8 +1,8 @@
 <div id="chart-picker"
     class="d-flex justify-content-center align-items-center border border-secondary-subtle rounded-2 p-1"
-    (click)="pickChartType()" [ngClass]="{'disabled-chart-icon': chartConfiguration.id!=0}">
-    <div [innerHTML]="selected_chart_available_details.chartIcon" class="me-2"></div>
-    {{selected_chart_available_details.chartTitle}} Chart
+    (click)="chart_selector.toggle($event)" [ngClass]="{'disabled-chart-icon': chartConfiguration.id!=0}">
+    <div [innerHTML]="selected_available_chart.icon" class="me-2"></div>
+    {{selected_available_chart.title}}
 </div>
 <hr>
 <div class="row g-2 mb-4">
@@ -34,3 +34,22 @@
 </div>
 
 <div #dynamicComponentContainer></div>
+
+<p-overlayPanel #chart_selector [style]="{ width: '500px', padding:'0px' }" position="left">
+    <ng-template pTemplate="content">
+        <div class="row g-2">
+            @for (available_chart of available_charts; track $index) {
+            <div class="col-sm-2">
+                <div class="card" (click)="onSelectChartType(available_chart, chart_selector)" style="cursor: pointer;">
+                    <div class="card-body d-flex justify-content-center align-items-center p-2">
+                        <div [innerHTML]="available_chart.icon"></div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center align-items-center p-1">
+                        {{available_chart.title}}
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </ng-template>
+</p-overlayPanel>

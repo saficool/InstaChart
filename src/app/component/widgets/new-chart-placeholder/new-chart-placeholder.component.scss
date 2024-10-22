@@ -13,3 +13,8 @@ div#chart-picker:hover {
   opacity: 0.75; /* Makes the element appear dimmed */
   cursor: not-allowed; /* Shows a 'not-allowed' cursor */
 }
+
+.svg-container svg {
+  width: 100px;
+  height: 100px;
+}

@@ -76,7 +76,7 @@ export class LineChartComponent {
         this.chartConfiguration.options.xAxis.data = data.xAxis
         this.chartConfiguration.options.series = data.series
       });
-    this.chartConfiguration.options.title.text = this.chartConfiguration.title
+    this.chartConfiguration.title = this.chartConfiguration.options.title.text
     if (this.chartConfiguration.id == 0) {
       this.chartConfiguration.id = this.randomNumberGeneratorService.GenerateRandomNumber()
       const _chartConfiguration = JSON.parse(JSON.stringify(this.chartConfiguration))

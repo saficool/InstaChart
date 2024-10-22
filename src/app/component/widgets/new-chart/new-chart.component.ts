@@ -71,7 +71,7 @@ export class NewChartComponent {
     const config: DynamicDialogConfig = {
       data: this.lineChartConfiguration,
       header: "New Chart",
-      width: '500px',
+      width: '30vw',
       height: "auto",
       closeOnEscape: false,
       modal: true,

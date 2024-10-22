@@ -1,4 +1,3 @@
-import { AreaChartComponent } from "../component/widgets/available-charts/area-chart/area-chart.component";
 import { LineAreaChartComponent } from "../component/widgets/available-charts/line-area-chart/line-area-chart.component";
 import { LineChartComponent } from "../component/widgets/available-charts/line-chart/line-chart.component";
 import { StepAreaChartComponent } from "../component/widgets/available-charts/step-area-chart/step-area-chart.component";
@@ -15,11 +14,13 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
                 text: "My line chart",
                 textStyle: {
                     fontSize: 18,
-                    fontWeight: "bolder"
+                    fontWeight: "bolder",
+                    fontStyle: "normal"
                 }
             },
             xAxis: {
                 type: "category",
+                boundaryGap: false,
                 axisTick: {
                     show: true,
                     alignWithLabel: true
@@ -40,6 +41,7 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
                     show: true
                 },
                 name: "Y-Axis label",
+                nameLocation: "end",
                 nameTextStyle: {
                     verticalAlign: "bottom",
                     fontWeight: "bold",
@@ -50,7 +52,7 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
             tooltip: {
                 trigger: "axis",
                 axisPointer: {
-                    type: "cross",
+                    type: "line",
                     label: { backgroundColor: "#6a7985" }
                 }
             },
@@ -70,7 +72,12 @@ export const MY_AVAILABLE_CHARTS: IMyAvailableChart[] = [
                 orient: "horizontal"
             },
             grid: {
-                show: true
+                show: true,
+                left: '5%',
+                right: '5%',
+                top: '15%',
+                bottom: '10%',
+                containLabel: true
             },
             series: []
         },

@@ -1,80 +1,322 @@
-<div class="row g-2 mb-2">
-    <div class="col-sm-6">
-        <div class="input-group input-group-sm shadow-none">
-            <span class="input-group-text" id="categorical_column">x</span>
-            <select [(ngModel)]="chartConfiguration.data_object!.categorical_column"
-                class="form-select form-select-sm shadow-none" aria-label="Default select example">
-                <option [ngValue]="null" [selected]="true">Select category...</option>
-                @for (categorical of chartData.chart_data_column_types?.categorical; track $index) {
-                <option [ngValue]="categorical">{{categorical}}</option>
-                }
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="row g-2 mb-2">
-    @for (aggregate_numerical_object of chartConfiguration.data_object?.aggregate_numerical_objects;
-    track $index) {
-    <div class="col-sm-6">
-        <div class="input-group input-group-sm shadow-none">
-            <span class="input-group-text" id="numerical_column">y</span>
-            <select [(ngModel)]="aggregate_numerical_object.numerical_column"
-                class="form-select form-select-sm shadow-none" aria-label="Default select example">
-                <option [ngValue]="null" [selected]="true">Select numeric...</option>
-                @for (numerical of chartData.chart_data_column_types?.numerical; track $index) {
-                <option [ngValue]="numerical">{{numerical}}</option>
-                }
-            </select>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="input-group input-group-sm shadow-none">
-            <span class="input-group-text" id="aggregate_function">
-                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
-                    <text x="1" y="14" font-family="serif" font-size="14" fill="black">f(x)</text>
-                </svg>
-            </span>
-            <select [(ngModel)]="aggregate_numerical_object.aggregate_function"
-                class="form-select form-select-sm shadow-none" aria-label="Default select example">
-                @for (aggregate_function of aggregate_functions|enumToArray; track $index) {
-                <option [value]="aggregate_function.value">{{aggregate_function.value}}</option>
-                }
-            </select>
-        </div>
-    </div>
-    <div class="col-sm-1">
-        <button type="button" class="btn btn-sm btn-info" aria-label="line-option" (click)="op.toggle($event)">
-            <i class="bi bi-sliders"></i>
-        </button>
-        <p-overlayPanel #op>
-            <div class="flex flex-column gap-2 w-25rem">
-                <div class="form-check form-switch">
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Smooth Line</label>
-                    <input class="form-check-input" [(ngModel)]="aggregate_numerical_object.smooth" type="checkbox"
-                        role="switch" id="flexSwitchCheckChecked" checked>
-                </div>
+<div class="border border0secondary rounded-1 p-2 mb-2 bg-primary-subtle">
+    <div class="row g-2 mb-2">
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm shadow-none">
+                <span class="input-group-text" id="categorical_column">x</span>
+                <select [(ngModel)]="chartConfiguration.data_object!.categorical_column"
+                    class="form-select form-select-sm shadow-none" aria-label="Default select example"
+                    [required]="true">
+                    <option [ngValue]="null" [selected]="true">Select category...</option>
+                    @for (categorical of chartData.chart_data_column_types?.categorical; track $index) {
+                    <option [ngValue]="categorical">{{categorical}}</option>
+                    }
+                </select>
             </div>
-        </p-overlayPanel>
+        </div>
     </div>
-    <div class="col-sm-1">
-        <button type="button" class="btn btn-sm btn-danger w-100" aria-label="Delete data"
-            (click)="removeAggregateNumericalObject($index)">
-            <i class="bi bi-trash"></i>
-        </button>
+    <div class="row g-2 mb-2">
+        @for (aggregate_numerical_object of chartConfiguration.data_object?.aggregate_numerical_objects;
+        track $index) {
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm shadow-none">
+                <span class="input-group-text" id="numerical_column">y</span>
+                <select [(ngModel)]="aggregate_numerical_object.numerical_column"
+                    class="form-select form-select-sm shadow-none" aria-label="Default select example">
+                    <option [ngValue]="null" [selected]="true">Select numeric...</option>
+                    @for (numerical of chartData.chart_data_column_types?.numerical; track $index) {
+                    <option [ngValue]="numerical">{{numerical}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group input-group-sm shadow-none">
+                <span class="input-group-text" id="aggregate_function">
+                    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
+                        <text x="1" y="14" font-family="serif" font-size="14" fill="black">f(x)</text>
+                    </svg>
+                </span>
+                <select [(ngModel)]="aggregate_numerical_object.aggregate_function"
+                    class="form-select form-select-sm shadow-none" aria-label="Default select example">
+                    @for (aggregate_function of aggregate_functions|enumToArray; track $index) {
+                    <option [value]="aggregate_function.value">{{aggregate_function.value}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-sm btn-info" aria-label="line-option" (click)="op.toggle($event)">
+                <i class="bi bi-sliders"></i>
+            </button>
+            <p-overlayPanel #op>
+                <div style="width: 350px;">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="smooth-line">Smooth Line</label>
+                        <input class="form-check-input" [(ngModel)]="aggregate_numerical_object.smooth" type="checkbox"
+                            role="switch" id="smooth-line">
+                    </div>
+                    <hr>
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <label class="form-check-label" for="step-line">Step Line</label>
+                        </div>
+                        <div class="col-8 d-flex justify-content-between">
+                            <div class="form-check form-switch">
+                                <input #isStepLine class="form-check-input" type="checkbox" role="switch"
+                                    id="step-line">
+                            </div>
+                            @if (isStepLine.checked) {
+                            <div class="d-flex gap-1">
+                                <input type="radio" class="btn-check" name="options-outlined" id="start"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-sm btn-outline-primary" for="start">Start</label>
+
+                                <input type="radio" class="btn-check" name="options-outlined" id="center"
+                                    autocomplete="off">
+                                <label class="btn btn-sm btn-outline-primary" for="center">Middle</label>
+
+                                <input type="radio" class="btn-check" name="options-outlined" id="end"
+                                    autocomplete="off">
+                                <label class="btn btn-sm btn-outline-primary" for="end">End</label>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    @if (!isStepLine.checked){
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <label class="form-check-label" for="smooth-line">Smooth Line</label>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" [(ngModel)]="aggregate_numerical_object.smooth"
+                                    type="checkbox" role="switch" id="smooth-line">
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <label class="form-check-label" for="area-line">Area Line</label>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="area-line">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-overlayPanel>
+        </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-sm btn-danger w-100" aria-label="Delete data"
+                (click)="removeAggregateNumericalObject($index)">
+                <i class="bi bi-trash"></i>
+            </button>
+        </div>
+        }
     </div>
-    }
+    <button type="button" class="btn btn-sm btn-primary" aria-label="Add data" (click)="addAggregateNumericalObject()">
+        <i class="bi bi-plus-lg"></i>
+    </button>
 </div>
 
-<div class="row g-2 mb-2">
-    <div class="col-sm-12 d-flex justify-content-end">
-        <button type="button" class="btn btn-sm btn-primary" aria-label="Add data"
-            (click)="addAggregateNumericalObject()">
-            <i class="bi bi-plus-lg"></i>
-        </button>
+<div class="border border0secondary rounded-1 p-2 bg-info-subtle">
+    <div class="row g-2 mb-2">
+
+        <!-- Title -->
+        <div class="col-12">
+            Title
+        </div>
+        <div class="col-sm-12">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="title">Title</span>
+                <input [(ngModel)]="chartConfiguration.options.title.text" type="text" class="form-control shadow-none"
+                    aria-label="title" aria-describedby="title">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="basic-addon1">Weight</span>
+                <select [(ngModel)]="chartConfiguration.options.title.textStyle.fontWeight"
+                    class="form-select shadow-none" aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'lighter'">Lighter</option>
+                    <option [value]="'normal'">Normal</option>
+                    <option [value]="'bold'">Bold</option>
+                    <option [value]="'bolder'">Bolder</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="basic-addon1">Style</span>
+                <select [(ngModel)]="chartConfiguration.options.title.textStyle.fontStyle"
+                    class="form-select shadow-none" aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'normal'">Normal</option>
+                    <option [value]="'italic'">Italic</option>
+                    <option [value]="'oblique'">Oblique</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="basic-addon1">Size</span>
+                <select [(ngModel)]="chartConfiguration.options.title.textStyle.fontSize"
+                    class="form-select shadow-none" aria-label="Default select example" aria-describedby="column">
+                    <option [value]="12">12</option>
+                    <option [value]="13">13</option>
+                    <option [value]="14">14</option>
+                    <option [value]="15">15</option>
+                    <option [value]="16">16</option>
+                    <option [value]="17">17</option>
+                    <option [value]="18">18</option>
+                    <option [value]="19">19</option>
+                    <option [value]="20">20</option>
+                    <option [value]="21">21</option>
+                    <option [value]="22">22</option>
+                    <option [value]="23">23</option>
+                    <option [value]="24">24</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!-- Axis -->
+        <div class="col-12">
+            Axis
+        </div>
+        <div class="col-sm-7">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="title">X-Label</span>
+                <input [(ngModel)]="chartConfiguration.options.xAxis.name" type="text" class="form-control shadow-none"
+                    aria-label="title" aria-describedby="title">
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Position</span>
+                <select [(ngModel)]="chartConfiguration.options.xAxis.nameLocation" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'start'">Start</option>
+                    <option [value]="'center'">Center</option>
+                    <option [value]="'end'">End</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="title">Y-Label</span>
+                <input [(ngModel)]="chartConfiguration.options.yAxis.name" type="text" class="form-control shadow-none"
+                    aria-label="title" aria-describedby="title">
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Position</span>
+                <select [(ngModel)]="chartConfiguration.options.yAxis.nameLocation" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'start'">Start</option>
+                    <option [value]="'center'">Center</option>
+                    <option [value]="'end'">End</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="col-12">
+            Legend
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Position</span>
+                <select [(ngModel)]="chartConfiguration.options.legend.left" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'left'">Left</option>
+                    <option [value]="'center'">Center</option>
+                    <option [value]="'right'">Right</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Orient</span>
+                <select [(ngModel)]="chartConfiguration.options.legend.orient" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'horizontal'">Horizontal</option>
+                    <option [value]="'vertical'">Vertical</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tooltip -->
+        <div class="col-12">
+            Tooltip
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Type</span>
+                <select [(ngModel)]="chartConfiguration.options.tooltip.axisPointer.type"
+                    class="form-select shadow-none" aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'line'">Line</option>
+                    <option [value]="'shadow'">Shadow</option>
+                    <option [value]="'cross'">Cross</option>
+                    <option [value]="'none'">None</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Toolbox -->
+        <div class="col-12">
+            Toolbox
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Horizontal</span>
+                <select [(ngModel)]="chartConfiguration.options.toolbox.left" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'left'">Left</option>
+                    <option [value]="'center'">Center</option>
+                    <option [value]="'right'">Right</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Vertical</span>
+                <select [(ngModel)]="chartConfiguration.options.toolbox.top" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'top'">Top</option>
+                    <option [value]="'middle'">Middle</option>
+                    <option [value]="'bottom'">Bottom</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" id="column">Orient</span>
+                <select [(ngModel)]="chartConfiguration.options.toolbox.orient" class="form-select shadow-none"
+                    aria-label="Default select example" aria-describedby="column">
+                    <option [value]="'horizontal'">Horizontal</option>
+                    <option [value]="'vertical'">Vertical</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="col-12">
+            <div class="form-check form-switch">
+                <input [(ngModel)]="chartConfiguration.options.grid.show" class="form-check-input" type="checkbox"
+                    role="switch" id="flexSwitchCheckChecked">
+                <label class="form-check-label" for="flexSwitchCheckChecked">
+                    Show Grid
+                </label>
+            </div>
+        </div>
     </div>
 </div>
 
-<button type="button" class="btn btn-sm btn-primary w-100" aria-label="Add data" (click)="saveChartConfiguration()">
-    <i class="bi bi-save me-2"></i> Save
-</button>
+<div class="d-flex">
+    <button type="button" class="btn btn-sm btn-primary mt-2" aria-label="Add data" (click)="saveChartConfiguration()">
+        <i class="bi bi-save me-2"></i> Save
+    </button>
+</div>

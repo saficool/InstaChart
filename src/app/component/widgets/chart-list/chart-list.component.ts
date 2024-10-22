@@ -28,7 +28,7 @@ export class ChartListComponent {
     const config: DynamicDialogConfig = {
       data: chart_configs,
       header: `${this.stringTransformerService.ConvertToTitleCase(chart_configs.type)} Chart`,
-      width: '500px',
+      width: '30vw',
       height: 'auto',
       closeOnEscape: false,
       modal: true,
